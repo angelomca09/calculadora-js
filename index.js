@@ -41,12 +41,10 @@ function readInput(element) {
 }
 
 function insertNumber(number) {
-  console.log("insertNumber: ", number);
   expressionDiv.textContent += number;
 }
 
 function insertOperator(operator) {
-  console.log("insertOperator: ", operator);
   if (findOperator(expressionDiv.textContent)) {
     const result = calculate();
     cancel();
