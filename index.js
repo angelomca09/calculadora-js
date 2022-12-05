@@ -97,8 +97,9 @@ function equalize() {
 }
 
 function deleteInsertion() {
-  console.log("delete");
-  //TODO
+  const text = expressionDiv.textContent;
+  const len = text.length;
+  expressionDiv.textContent = text.slice(0, len - 1);
 }
 
 function insertFloat() {
