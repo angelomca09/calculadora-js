@@ -130,6 +130,18 @@ function insertFloat() {
 }
 
 function negative() {
-  console.log("negative");
-  //TODO
+  const textExpression = expressionDiv.textContent;
+  const operator = findOperator(textExpression);
+  const numbers = textExpression.split(operator);
+  const numInd = numbers.length - 1;
+  if (numbers[numInd] === "-") {
+    deleteInsertion();
+    return;
+  }
+  if (numbers[numInd] !== "") {
+    numbers[numInd] *= -1;
+    expressionDiv.textContent = numbers.join(operator);
+    return;
+  }
+  expressionDiv.textContent += "-";
 }
