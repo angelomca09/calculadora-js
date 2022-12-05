@@ -68,7 +68,7 @@ function findOperator(expression) {
   if (expression.includes(" - ")) return " - ";
   if (expression.includes(" x ")) return " x ";
   if (expression.includes(" / ")) return " / ";
-  return "";
+  return undefined;
 }
 
 function calculate() {
@@ -117,8 +117,16 @@ function deleteInsertion() {
 }
 
 function insertFloat() {
-  console.log("insertFloat");
-  //TODO
+  const textExpression = expressionDiv.textContent;
+  const operator = findOperator(textExpression);
+  const numbers = textExpression.split(operator);
+  if (textExpression === "" || numbers.some((n) => n === "")) {
+    expressionDiv.textContent += "0.";
+    return;
+  }
+  const numInd = numbers.length - 1;
+  if (numbers[numInd].includes(".")) return;
+  expressionDiv.textContent += ".";
 }
 
 function negative() {
