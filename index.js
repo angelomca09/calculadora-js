@@ -1,3 +1,6 @@
+let expressionDiv = document.querySelector(".expression");
+let resultDiv = document.querySelector(".result");
+
 function readInput(element) {
   let input = element.innerText;
   switch (input) {
@@ -20,7 +23,7 @@ function readInput(element) {
       insertOperator(input);
       break;
     case "=":
-      calculate();
+      equalize();
       break;
     case "C":
       cancel();
@@ -37,26 +40,62 @@ function readInput(element) {
   }
 }
 
-let expression = document.querySelector(".expression");
-
 function insertNumber(number) {
   console.log("insertNumber: ", number);
-  expression.textContent += number;
+  expressionDiv.textContent += number;
 }
 
 function insertOperator(operator) {
   console.log("insertOperator: ", operator);
-  //TODO
+  if (findOperator(expressionDiv.textContent)) {
+    const result = calculate();
+    cancel();
+    insertNumber(result);
+    insertResult(result);
+  }
+  expressionDiv.textContent += ` ${operator} `;
+}
+
+function findOperator(expression) {
+  if (expression.includes(" + ")) return " + ";
+  if (expression.includes(" - ")) return " - ";
+  if (expression.includes(" x ")) return " x ";
+  if (expression.includes(" / ")) return " / ";
+  return "";
 }
 
 function calculate() {
-  console.log("calculate");
-  //TODO
+  const textExpression = expressionDiv.textContent;
+  const operator = findOperator(textExpression);
+  if (!operator) return;
+  const numbers = textExpression.split(operator).map((n) => +n);
+  if (numbers.length != 2) return;
+  switch (operator) {
+    case " + ":
+      return numbers[0] + numbers[1];
+    case " - ":
+      return numbers[0] - numbers[1];
+    case " x ":
+      return numbers[0] * numbers[1];
+    case " / ":
+      return numbers[0] / numbers[1];
+  }
+}
+
+function insertResult(result) {
+  resultDiv.textContent = result;
 }
 
 function cancel() {
-  console.log("cancel");
-  //TODO
+  expressionDiv.textContent = "";
+  resultDiv.textContent = "";
+}
+
+function equalize() {
+  const result = calculate();
+  cancel();
+  insertNumber(result);
+  insertResult(result);
 }
 
 function deleteInsertion() {
