@@ -120,11 +120,11 @@ function insertFloat() {
   const textExpression = expressionDiv.textContent;
   const operator = findOperator(textExpression);
   const numbers = textExpression.split(operator);
-  if (textExpression === "" || numbers.some((n) => n === "")) {
+  const numInd = numbers.length - 1;
+  if (numbers[numInd] === "" || numbers[numInd] === "-") {
     expressionDiv.textContent += "0.";
     return;
   }
-  const numInd = numbers.length - 1;
   if (numbers[numInd].includes(".")) return;
   expressionDiv.textContent += ".";
 }
