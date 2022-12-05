@@ -37,9 +37,11 @@ function readInput(element) {
   }
 }
 
+let expression = document.querySelector(".expression");
+
 function insertNumber(number) {
   console.log("insertNumber: ", number);
-  //TODO
+  expression.textContent += number;
 }
 
 function insertOperator(operator) {
