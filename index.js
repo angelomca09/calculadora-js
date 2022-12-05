@@ -20,7 +20,7 @@ function readInput(element) {
     case "-":
     case "/":
     case "x":
-      insertOperator(input);
+      insertOperator(` ${input} `);
       break;
     case "=":
       equalize();
@@ -45,13 +45,22 @@ function insertNumber(number) {
 }
 
 function insertOperator(operator) {
-  if (findOperator(expressionDiv.textContent)) {
-    const result = calculate();
-    cancel();
-    insertNumber(result);
-    insertResult(result);
+  const textExpression = expressionDiv.textContent;
+  if (textExpression === "") return;
+  const prevOperator = findOperator(textExpression);
+  if (prevOperator) {
+    const numbers = textExpression.split(prevOperator);
+    if (numbers.length != 2 || numbers.some((n) => n === "")) {
+      expressionDiv.textContent = textExpression.replace(
+        prevOperator,
+        operator
+      );
+      return;
+    }
+
+    equalize();
   }
-  expressionDiv.textContent += ` ${operator} `;
+  expressionDiv.textContent += `${operator}`;
 }
 
 function findOperator(expression) {
@@ -66,17 +75,17 @@ function calculate() {
   const textExpression = expressionDiv.textContent;
   const operator = findOperator(textExpression);
   if (!operator) return;
-  const numbers = textExpression.split(operator).map((n) => +n);
-  if (numbers.length != 2) return;
+  const numbers = textExpression.split(operator);
+  if (numbers.length != 2 || numbers.some((n) => n === "")) return;
   switch (operator) {
     case " + ":
-      return numbers[0] + numbers[1];
+      return +numbers[0] + +numbers[1];
     case " - ":
-      return numbers[0] - numbers[1];
+      return +numbers[0] - +numbers[1];
     case " x ":
-      return numbers[0] * numbers[1];
+      return +numbers[0] * +numbers[1];
     case " / ":
-      return numbers[0] / numbers[1];
+      return +numbers[0] / +numbers[1];
   }
 }
 
@@ -91,6 +100,7 @@ function cancel() {
 
 function equalize() {
   const result = calculate();
+  if (result === undefined) return;
   cancel();
   insertNumber(result);
   insertResult(result);
@@ -98,8 +108,12 @@ function equalize() {
 
 function deleteInsertion() {
   const text = expressionDiv.textContent;
-  const len = text.length;
-  expressionDiv.textContent = text.slice(0, len - 1);
+  const lastIndex = text.length - 1;
+  if (text.charAt(lastIndex) === " ") {
+    expressionDiv.textContent = text.slice(0, lastIndex - 2);
+  } else {
+    expressionDiv.textContent = text.slice(0, lastIndex);
+  }
 }
 
 function insertFloat() {
