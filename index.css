@@ -1,0 +1,101 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #1e1e1e;
+}
+
+.calculator {
+  background-color: #444444;
+
+  border: 3px solid #030303;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 2rem;
+}
+
+.display {
+  font-family: "Press Start 2P", cursive;
+
+  display: flex;
+  background-color: darkolivegreen;
+  border: 2px solid black;
+  color: #1b1b1b;
+  border-radius: 5px;
+
+  font-size: 5rem;
+  height: 80px;
+  padding: 0 10px;
+  margin-bottom: 1rem;
+}
+.display * {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.display :nth-child(1) {
+  margin-right: auto;
+}
+.result {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0.5rem;
+}
+
+.buttons button {
+  font-weight: 600;
+
+  height: 60px;
+  background-color: #282828;
+  border-radius: 3px;
+  border: 2px solid #030303;
+  font-size: 3rem;
+  color: #b3b3b3;
+}
+
+.buttons button:hover {
+  background-color: #444444;
+}
+
+.buttons .all-clear {
+  background-color: #f0595f;
+  color: #fff;
+}
+
+.buttons .all-clear:hover {
+  background-color: #f17377;
+}
+
+.buttons .equal {
+  background-color: #c06d2e;
+  color: #fff;
+  height: 100%;
+  grid-row-start: 4;
+  grid-row-end: 6;
+  grid-column-start: 4;
+}
+
+.buttons .equal:hover {
+  background-color: #d28245;
+}

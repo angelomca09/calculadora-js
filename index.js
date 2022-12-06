@@ -2,7 +2,7 @@ let expressionDiv = document.querySelector(".expression");
 let resultDiv = document.querySelector(".result");
 
 function readInput(element) {
-  let input = element.innerText;
+  let input = element.value;
   switch (input) {
     case "0":
     case "1":
@@ -25,7 +25,7 @@ function readInput(element) {
     case "=":
       equalize();
       break;
-    case "C":
+    case "AC":
       cancel();
       break;
     case "DEL":
